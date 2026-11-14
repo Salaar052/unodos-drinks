@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Bangers, Nunito } from "next/font/google";
+import { Creepster, Nunito } from "next/font/google";
 import "./globals.css";
 
-const display = Bangers({
+const display = Creepster({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-display",
@@ -20,22 +20,22 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Unodos Drinks | Geek Con Menu",
+  title: "Unodos Drinks | Blood Moon Izakaya",
   description:
-    "Scan, sip, power up. Unodos Drinks by Undos Games — anime-inspired potions and food at Geek Con, 21–22 Nov 2026.",
+    "Enter if you dare. Unodos Drinks by Undos Games — horror-anime potions and power-up food at Geek Con, 21–22 Nov 2026.",
   applicationName: "Unodos Drinks",
   openGraph: {
     type: "website",
     locale: "en_PK",
-    title: "Unodos Drinks | Geek Con Menu",
+    title: "Unodos Drinks | Blood Moon Izakaya",
     description:
-      "Anime-inspired drinks and power-up food at Geek Con. Undos Games presents Unodos Drinks.",
+      "Haunted-anime drinks and food at Geek Con. Undos Games presents Unodos Drinks.",
     siteName: "Unodos Drinks",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Unodos Drinks | Geek Con Menu",
-    description: "Anime-inspired drinks and food at Geek Con — scan the stall QR to view the menu.",
+    title: "Unodos Drinks | Blood Moon Izakaya",
+    description: "Scan the stall QR — sip if you dare.",
   },
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0716",
+  themeColor: "#07030a",
   width: "device-width",
   initialScale: 1,
   colorScheme: "dark",

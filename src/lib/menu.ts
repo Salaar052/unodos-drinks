@@ -2,16 +2,12 @@ export type MenuSectionId = "potions" | "food";
 
 export type Temperature = "hot" | "cold";
 
-export type IllustrationKind =
-  | "bolt-glass"
-  | "flame-orb-glass"
-  | "swirl-glass"
-  | "potion-bottle"
-  | "blue-flask"
-  | "ember-mug"
-  | "latte-cup"
-  | "rice-bowl"
-  | "brownie";
+export interface CharacterPlacement {
+  offsetX: number;
+  offsetY: number;
+  scale: number;
+  flip: boolean;
+}
 
 export interface MenuItem {
   id: string;
@@ -25,12 +21,19 @@ export interface MenuItem {
   gradient: [string, string];
   temperature?: Temperature;
   ingredients?: string[];
-  illustration: IllustrationKind;
-  /** Set to true after adding `public/images/<id>.jpg` */
+  character: CharacterPlacement;
+  /** Set to true after adding `public/images/<id>.jpg` (small badge near price) */
   hasPhoto: boolean;
 }
 
 const PRICE = "Rs 600";
+
+const defaultChar = (): CharacterPlacement => ({
+  offsetX: 0,
+  offsetY: 0,
+  scale: 1,
+  flip: false,
+});
 
 export const MENU_SECTIONS: { id: MenuSectionId; title: string }[] = [
   { id: "potions", title: "Potions & Drinks" },
@@ -44,9 +47,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Demon Slayer",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Blink-fast citrus—gone before the crumbs settle.",
+    tagline: "Sip if you dare—blink and the aftertaste hunts you.",
     description:
-      "Golden fizz with passionfruit and mango, sharpened by lemon like a finishing slash.",
+      "Golden fizz, passionfruit and mango cut with lemon—like a finishing stroke in the dark.",
     priceLabel: PRICE,
     gradient: ["#FFD60A", "#FF9F0A"],
     temperature: "cold",
@@ -57,7 +60,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Sprite 180 ml",
       "Ice 200 g",
     ],
-    illustration: "bolt-glass",
+    character: { ...defaultChar(), offsetY: 8, scale: 0.92 },
     hasPhoto: false,
   },
   {
@@ -66,9 +69,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "JoJo's Bizarre Adventure Part 3",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Stand proud—this crimson fizz pulls no punches.",
+    tagline: "One sip and the night remembers your name.",
     description:
-      "Strawberry and cherry blaze over lemon sparkle, loud enough to turn heads mid-panel.",
+      "Strawberry and cherry flare over lemon sparkle—crimson enough to summon a stand in the shadows.",
     priceLabel: PRICE,
     gradient: ["#FF2D2D", "#B80000"],
     temperature: "cold",
@@ -79,7 +82,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Sprite 180 ml",
       "Ice 200 g",
     ],
-    illustration: "flame-orb-glass",
+    character: { ...defaultChar(), offsetX: -4, scale: 0.95 },
     hasPhoto: false,
   },
   {
@@ -88,9 +91,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Jujutsu Kaisen",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Void-sweet, impossibly purple, weirdly comforting.",
+    tagline: "Cursed energy in a cup—sweet, violet, irreversible.",
     description:
-      "Blueberry depth with blood-orange spark and lemon lift—cursed energy, friendly price.",
+      "Blueberry void with blood-orange sting and lemon lift—impossibly purple, unsettlingly good.",
     priceLabel: PRICE,
     gradient: ["#9B5DE5", "#3A0CA3"],
     temperature: "cold",
@@ -101,7 +104,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Sprite 180 ml",
       "Ice 200 g",
     ],
-    illustration: "swirl-glass",
+    character: { ...defaultChar(), offsetY: 12, scale: 0.9 },
     hasPhoto: false,
   },
   {
@@ -110,14 +113,14 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Resident Evil",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Green bottle lore meets creamy cure vibes.",
+    tagline: "Green salvation—one sip, no cure for the craving.",
     description:
-      "Pakola fizz tamed with vanilla and milk—survival mission in a cup, auntie-approved.",
+      "Pakola hiss mellowed with vanilla and milk—survival never tasted so suspiciously creamy.",
     priceLabel: PRICE,
     gradient: ["#7BE495", "#1B9C5A"],
     temperature: "cold",
     ingredients: ["Pakola 100 ml", "Vanilla 15 ml", "Milk 150 ml", "Ice 200 g"],
-    illustration: "potion-bottle",
+    character: { ...defaultChar(), scale: 0.88, flip: true },
     hasPhoto: false,
   },
   {
@@ -126,9 +129,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Fantasy RPG / D&D",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Roll for refresh—natural twenty on the gulp.",
+    tagline: "Roll for refresh—the dungeon thirsts with you.",
     description:
-      "Pineapple and coconut water with a blue lagoon shimmer, topped with crisp still water.",
+      "Pineapple, coconut water, and blue lagoon shimmer—mana restored, morality optional.",
     priceLabel: PRICE,
     gradient: ["#3BA7FF", "#0A3FBF"],
     temperature: "cold",
@@ -139,7 +142,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Water 50 ml",
       "Ice 200 g",
     ],
-    illustration: "blue-flask",
+    character: { ...defaultChar(), offsetX: 6, offsetY: 6, scale: 0.93 },
     hasPhoto: false,
   },
   {
@@ -148,9 +151,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Howl's Moving Castle",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Warm hearth in a mug—watch the steam dance.",
+    tagline: "Warm ember on your lips—don't look away from the steam.",
     description:
-      "Dark chocolate, vanilla, and evaporated milk blended slow, like a fire spirit on duty.",
+      "Dark chocolate, vanilla, and evaporated milk—hearth-light for travelers past curfew.",
     priceLabel: PRICE,
     gradient: ["#FF8A3D", "#7A3E12"],
     temperature: "hot",
@@ -160,7 +163,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Vanilla syrup 10 ml",
       "Evaporated milk 50 ml",
     ],
-    illustration: "ember-mug",
+    character: { ...defaultChar(), offsetY: 10, scale: 0.9 },
     hasPhoto: false,
   },
   {
@@ -169,9 +172,9 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Tokyo Ghoul",
     section: "potions",
     sectionTitle: "Potions & Drinks",
-    tagline: "Café hush with vanilla foam—second panel optional.",
+    tagline: "Quiet café poison—vanilla soft, coffee cruel.",
     description:
-      "Pull shot, steamed milk, and vanilla syrup—quiet strength in every sip.",
+      "Espresso pull, steamed milk, vanilla veil—strength sipped behind a polite foam mask.",
     priceLabel: PRICE,
     gradient: ["#E8D2B0", "#8B5E3C"],
     temperature: "hot",
@@ -181,7 +184,7 @@ export const MENU_ITEMS: MenuItem[] = [
       "Vanilla syrup 20 ml",
       "Water 30 ml",
     ],
-    illustration: "latte-cup",
+    character: { ...defaultChar(), offsetX: -6, scale: 0.91 },
     hasPhoto: false,
   },
   {
@@ -190,12 +193,12 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Food Wars!",
     section: "food",
     sectionTitle: "Power-Up Food",
-    tagline: "Spice-line victory—fork at the ready.",
+    tagline: "Feast like your last night—spices that bite back.",
     description:
-      "Golden South Indian pilaf built for festival hunger, served as a proper power-up plate.",
+      "Golden South Indian pilaf for festival hunger—a plate that dares you to stop at one spoon.",
     priceLabel: PRICE,
     gradient: ["#F4A52C", "#A8541A"],
-    illustration: "rice-bowl",
+    character: { ...defaultChar(), offsetY: 16, scale: 0.85 },
     hasPhoto: false,
   },
   {
@@ -204,12 +207,12 @@ export const MENU_ITEMS: MenuItem[] = [
     inspiredBy: "Death Note",
     section: "food",
     sectionTitle: "Power-Up Food",
-    tagline: "Sweet logic—dense, dark, deadline fuel.",
+    tagline: "Sweet logic, dark crumbs—fuel for beautiful minds.",
     description:
-      "A hefty chocolate brownie bar for thinkers who solve plots between booth hops.",
+      "Dense chocolate brownie bar—deadline fuel for those who plot in the moonlight.",
     priceLabel: PRICE,
     gradient: ["#7B4B2A", "#3B2312"],
-    illustration: "brownie",
+    character: { ...defaultChar(), scale: 0.87, flip: true },
     hasPhoto: false,
   },
 ];
@@ -220,4 +223,8 @@ export function itemsBySection(sectionId: MenuSectionId): MenuItem[] {
 
 export function photoPath(id: string): string {
   return `/images/${id}.jpg`;
+}
+
+export function characterPath(id: string): string {
+  return `/characters/${id}.png`;
 }

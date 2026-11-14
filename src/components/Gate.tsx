@@ -21,14 +21,16 @@ export function Gate({ onUnlocked }: Props) {
     let valid = true;
     const trimmedName = name.trim();
     if (trimmedName.length < 2) {
-      setNameError("Please enter at least 2 characters (cosplay names count!).");
+      setNameError(
+        "The shadows need a name—at least two letters, cosplay counts.",
+      );
       valid = false;
     } else {
       setNameError("");
     }
     if (!isValidPakistaniMobile(phone)) {
       setPhoneError(
-        "Use a Pakistani mobile like 03XX XXXXXXX, +923XX XXXXXXX, or 923XX XXXXXXX.",
+        "A cursed line must reach you—03XX XXXXXXX, +923XX XXXXXXX, or 923XX XXXXXXX.",
       );
       valid = false;
     } else {
@@ -77,9 +79,9 @@ export function Gate({ onUnlocked }: Props) {
     <div className="gate-overlay" role="dialog" aria-modal="true" aria-labelledby="gate-title">
       <form className="gate-card" onSubmit={handleSubmit} noValidate>
         <h2 id="gate-title" className="gate-title">
-          Enter your info to unlock the menu
+          Enter if you dare
         </h2>
-        <p className="gate-sub">Quick signup—then straight to the good stuff.</p>
+        <p className="gate-sub">Leave a name and number—then the menu awakens.</p>
 
         <div className="field">
           <label htmlFor="gate-name">Name or cosplay name</label>
@@ -142,7 +144,7 @@ export function Gate({ onUnlocked }: Props) {
         </p>
 
         <button type="submit" className="btn-start" disabled={submitting}>
-          {submitting ? "Opening…" : "Start"}
+          {submitting ? "Opening…" : "Open the menu"}
         </button>
       </form>
     </div>

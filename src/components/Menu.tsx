@@ -12,6 +12,7 @@ export function Menu() {
           <section key={section.id} className="menu-section" aria-labelledby={`section-${section.id}`}>
             <h2 id={`section-${section.id}`} className="section-heading">
               {section.title}
+              <span className="section-slash" aria-hidden />
             </h2>
             <ul className="menu-list">
               {items.map((item) => {

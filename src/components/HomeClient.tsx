@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { isMenuUnlocked } from "@/lib/storage";
+import { Atmosphere } from "./Atmosphere";
+import { DeveloperSection } from "./DeveloperSection";
 import { Gate } from "./Gate";
 import { Hero } from "./Hero";
 import { Menu } from "./Menu";
@@ -17,9 +19,15 @@ export function HomeClient() {
 
   return (
     <>
+      <Atmosphere />
       <main className="shell">
         <Hero />
-        {unlocked ? <Menu /> : null}
+        {unlocked ? (
+          <>
+            <Menu />
+            <DeveloperSection />
+          </>
+        ) : null}
         <footer className="site-footer">
           Unofficial fan-tribute menu. Not affiliated with any studio or franchise.
         </footer>
