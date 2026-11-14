@@ -1,9 +1,9 @@
 "use client";
 
-import { useId, useState, type CSSProperties } from "react";
+import { memo, useId, useState, type CSSProperties } from "react";
 import type { MenuItem } from "@/lib/menu";
 import { CharacterArt } from "./CharacterArt";
-import { DrinkPhotoBadge } from "./DrinkPhotoBadge";
+import { DrinkPhoto } from "./DrinkPhoto";
 
 interface Props {
   item: MenuItem;
@@ -11,42 +11,58 @@ interface Props {
   imagePriority?: boolean;
 }
 
-export function MenuCard({ item, index, imagePriority }: Props) {
+export const DrinkCard = memo(function DrinkCard({
+  item,
+  index,
+  imagePriority,
+}: Props) {
   const [open, setOpen] = useState(false);
   const ingredientsId = useId();
   const hasIngredients = Boolean(item.ingredients?.length);
-  const side: "left" | "right" = index % 2 === 0 ? "left" : "right";
 
   return (
     <article
-      className={`menu-card fade-up menu-card-${side}`}
+      className="drink-card fade-up"
+      data-item-id={item.id}
+      data-section={item.section}
       style={
         {
           "--accent-a": item.gradient[0],
           "--accent-b": item.gradient[1],
+          "--item-accent": item.accentColor,
           "--stagger": index,
         } as CSSProperties
       }
     >
-      <CharacterArt item={item} side={side} priority={imagePriority} />
-      <div className="menu-card-panel">
-        <div className="menu-card-claw" aria-hidden />
-        <div className="menu-card-body">
-          <div className="menu-card-top">
-            <span className="chip chip-inspired">{item.inspiredBy}</span>
+      <div className="drink-card-canvas" aria-hidden>
+        <CharacterArt
+          item={item}
+          side="left"
+          variant="background"
+          priority={imagePriority}
+        />
+        <div className="drink-card-scrim" />
+      </div>
+      <div className="drink-card-hero">
+        <DrinkPhoto item={item} priority={imagePriority} />
+      </div>
+      <div className="drink-card-layout">
+        <div className="drink-card-body">
+          <div className="drink-card-badges">
+            <span className="chip chip-series">{item.inspiredBy}</span>
             {item.temperature ? (
               <span className={`chip chip-temp chip-temp-${item.temperature}`}>
                 {item.temperature === "hot" ? "Hot" : "Cold"}
               </span>
             ) : null}
           </div>
-          <h3 className="item-title">{item.name}</h3>
-          <p className="item-tagline">{item.tagline}</p>
-          <p className="item-desc">{item.description}</p>
-          <div className="price-row">
-            <p className="item-price">{item.priceLabel}</p>
-            <DrinkPhotoBadge item={item} />
-          </div>
+          <h3 className="drink-name">{item.name}</h3>
+          <p className="drink-inspiration">
+            Inspired by <strong>{item.characterName}</strong>
+          </p>
+          <p className="drink-tagline">{item.tagline}</p>
+          <p className="drink-desc">{item.description}</p>
+          <p className="drink-price">{item.priceLabel}</p>
           {hasIngredients ? (
             <div className="ingredients-wrap">
               <button
@@ -74,4 +90,4 @@ export function MenuCard({ item, index, imagePriority }: Props) {
       </div>
     </article>
   );
-}
+});

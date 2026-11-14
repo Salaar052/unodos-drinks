@@ -1,3 +1,5 @@
+import type { FeaturedUniverseId } from "@/lib/universes";
+
 export type MenuSectionId = "potions" | "food";
 
 export type Temperature = "hot" | "cold";
@@ -12,7 +14,11 @@ export interface CharacterPlacement {
 export interface MenuItem {
   id: string;
   name: string;
+  /** Display name on series badge (franchise) */
   inspiredBy: string;
+  characterName: string;
+  universeId: FeaturedUniverseId | null;
+  accentColor: string;
   section: MenuSectionId;
   sectionTitle: string;
   tagline: string;
@@ -22,7 +28,7 @@ export interface MenuItem {
   temperature?: Temperature;
   ingredients?: string[];
   character: CharacterPlacement;
-  /** Set to true after adding `public/images/<id>.jpg` (small badge near price) */
+  /** `public/images/<id>.jpg` — real product photography */
   hasPhoto: boolean;
 }
 
@@ -45,6 +51,9 @@ export const MENU_ITEMS: MenuItem[] = [
     id: "thunderclap",
     name: "Thunderclap & Flash",
     inspiredBy: "Demon Slayer",
+    characterName: "Zenitsu Agatsuma",
+    universeId: "demon-slayer",
+    accentColor: "#D6A94F",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Sip if you dare—blink and the aftertaste hunts you.",
@@ -61,12 +70,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Ice 200 g",
     ],
     character: { ...defaultChar(), offsetY: 8, scale: 0.92 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "magicians-red",
     name: "Magician's Red",
-    inspiredBy: "JoJo's Bizarre Adventure Part 3",
+    inspiredBy: "JoJo's Bizarre Adventure",
+    characterName: "Muhammad Avdol",
+    universeId: null,
+    accentColor: "#A5092D",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "One sip and the night remembers your name.",
@@ -83,12 +95,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Ice 200 g",
     ],
     character: { ...defaultChar(), offsetX: -4, scale: 0.95 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "hollow-purple",
     name: "Hollow Purple",
     inspiredBy: "Jujutsu Kaisen",
+    characterName: "Satoru Gojo",
+    universeId: "jujutsu-kaisen",
+    accentColor: "#729BD9",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Cursed energy in a cup—sweet, violet, irreversible.",
@@ -105,12 +120,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Ice 200 g",
     ],
     character: { ...defaultChar(), offsetY: 12, scale: 0.9 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "t-virus-antidote",
     name: "T-Virus Antidote",
     inspiredBy: "Resident Evil",
+    characterName: "Jill Valentine",
+    universeId: null,
+    accentColor: "#7BE495",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Green salvation—one sip, no cure for the craving.",
@@ -121,12 +139,15 @@ export const MENU_ITEMS: MenuItem[] = [
     temperature: "cold",
     ingredients: ["Pakola 100 ml", "Vanilla 15 ml", "Milk 150 ml", "Ice 200 g"],
     character: { ...defaultChar(), scale: 0.88, flip: true },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "mana-potion",
     name: "Mana Potion",
     inspiredBy: "Fantasy RPG / D&D",
+    characterName: "The Adventurer",
+    universeId: null,
+    accentColor: "#729BD9",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Roll for refresh—the dungeon thirsts with you.",
@@ -143,12 +164,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Ice 200 g",
     ],
     character: { ...defaultChar(), offsetX: 6, offsetY: 6, scale: 0.93 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "calcifer-hot-choco",
     name: "Calcifer's Ember Hot Chocolate",
     inspiredBy: "Howl's Moving Castle",
+    characterName: "Calcifer",
+    universeId: null,
+    accentColor: "#D6A94F",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Warm ember on your lips—don't look away from the steam.",
@@ -164,12 +188,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Evaporated milk 50 ml",
     ],
     character: { ...defaultChar(), offsetY: 10, scale: 0.9 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "anteiku-latte",
     name: "Anteiku's Vanilla Latte",
     inspiredBy: "Tokyo Ghoul",
+    characterName: "Ken Kaneki",
+    universeId: null,
+    accentColor: "#E8D2B0",
     section: "potions",
     sectionTitle: "Potions & Drinks",
     tagline: "Quiet café poison—vanilla soft, coffee cruel.",
@@ -185,12 +212,15 @@ export const MENU_ITEMS: MenuItem[] = [
       "Water 30 ml",
     ],
     character: { ...defaultChar(), offsetX: -6, scale: 0.91 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "sohma-pilaf",
     name: "Sohma's South Indian Pilaf",
     inspiredBy: "Food Wars!",
+    characterName: "Soma Yukihira",
+    universeId: null,
+    accentColor: "#D6A94F",
     section: "food",
     sectionTitle: "Power-Up Food",
     tagline: "Feast like your last night—spices that bite back.",
@@ -199,12 +229,15 @@ export const MENU_ITEMS: MenuItem[] = [
     priceLabel: PRICE,
     gradient: ["#F4A52C", "#A8541A"],
     character: { ...defaultChar(), offsetY: 16, scale: 0.85 },
-    hasPhoto: false,
+    hasPhoto: true,
   },
   {
     id: "lawliet-brownie",
     name: "Lawliet's Energy Bar",
     inspiredBy: "Death Note",
+    characterName: "L (Lawliet)",
+    universeId: null,
+    accentColor: "#7B4B2A",
     section: "food",
     sectionTitle: "Power-Up Food",
     tagline: "Sweet logic, dark crumbs—fuel for beautiful minds.",
@@ -213,7 +246,7 @@ export const MENU_ITEMS: MenuItem[] = [
     priceLabel: PRICE,
     gradient: ["#7B4B2A", "#3B2312"],
     character: { ...defaultChar(), scale: 0.87, flip: true },
-    hasPhoto: false,
+    hasPhoto: true,
   },
 ];
 
@@ -221,10 +254,39 @@ export function itemsBySection(sectionId: MenuSectionId): MenuItem[] {
   return MENU_ITEMS.filter((item) => item.section === sectionId);
 }
 
+export function filterMenuItems(
+  filter: "all" | FeaturedUniverseId,
+): MenuItem[] {
+  if (filter === "all") return MENU_ITEMS;
+  return MENU_ITEMS.filter((item) => item.universeId === filter);
+}
+
+export function matchesMenuFilter(
+  item: MenuItem,
+  filter: "all" | FeaturedUniverseId,
+): boolean {
+  if (filter === "all") return true;
+  return item.universeId === filter;
+}
+
+export function filterCounts(): Record<"all" | FeaturedUniverseId, number> {
+  return {
+    all: MENU_ITEMS.length,
+    "demon-slayer": MENU_ITEMS.filter((i) => i.universeId === "demon-slayer")
+      .length,
+    "jujutsu-kaisen": MENU_ITEMS.filter(
+      (i) => i.universeId === "jujutsu-kaisen",
+    ).length,
+  };
+}
+
 export function photoPath(id: string): string {
-  return `/images/${id}.jpg`;
+  if (id === "lawliet-brownie") {
+    return "/images/lawliet-brownie.png?v=3";
+  }
+  return `/images/${id}.png`;
 }
 
 export function characterPath(id: string): string {
-  return `/characters/${id}.png`;
+  return `/characters/${id}.jpg`;
 }

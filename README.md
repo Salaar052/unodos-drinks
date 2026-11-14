@@ -26,7 +26,7 @@ Never commit `.env.local`. Webhook URL and secret are **server-only** (`/api/lea
 
 All items live in [`src/lib/menu.ts`](src/lib/menu.ts). Every item is **Rs 600** today—change `PRICE` or per-item `priceLabel` there.
 
-When you add a photo, save it as `public/images/<id>.jpg` and set `hasPhoto: true` on that item.
+When you add a drink cutout, save a transparent PNG as `public/images/<id>.png` and set `hasPhoto: true` on that item. Character art goes in `public/characters/<id>.jpg`.
 
 ### Suggested stock photo searches
 
