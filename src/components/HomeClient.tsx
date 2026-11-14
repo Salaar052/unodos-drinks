@@ -1,16 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { Atmosphere } from "./Atmosphere";
 import { DeveloperSection } from "./DeveloperSection";
+import { Gate } from "./Gate";
 import { Hero } from "./Hero";
 import { Menu } from "./Menu";
 import { useMenuUnlocked } from "@/lib/use-menu-unlocked";
-
-const Gate = dynamic(() => import("./Gate").then((m) => m.Gate), {
-  ssr: false,
-  loading: () => null,
-});
 
 export function HomeClient() {
   const { unlocked, unlock } = useMenuUnlocked();
@@ -20,12 +15,13 @@ export function HomeClient() {
       <Atmosphere />
       <main className="shell">
         <Hero menuUnlocked={unlocked} />
-        {unlocked ? (
-          <>
-            <Menu />
-            <DeveloperSection />
-          </>
-        ) : null}
+        <div
+          className={unlocked ? undefined : "menu-eager-preload"}
+          aria-hidden={!unlocked}
+        >
+          <Menu />
+        </div>
+        {unlocked ? <DeveloperSection /> : null}
         <footer className="site-footer">
           Unofficial fan-tribute menu. Not affiliated with any studio or franchise.
         </footer>

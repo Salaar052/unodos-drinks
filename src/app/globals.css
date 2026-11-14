@@ -938,14 +938,18 @@ body::after {
   min-width: 0;
 }
 
-.drink-list-item {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 16.75rem;
+.drink-list-item[hidden] {
+  display: none;
 }
 
-.drink-list-item[hidden] {
-  content-visibility: hidden;
-  display: none;
+/* Keep menu in DOM while gate is open so eager images fetch before unlock */
+.menu-eager-preload {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: min(100%, 560px);
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* Layered cards — full character background, drink overlapping bottom-right */

@@ -17,11 +17,6 @@ export function Menu() {
     [filter],
   );
 
-  const priorityItemId = useMemo(
-    () => MENU_ITEMS.find((item) => matchesMenuFilter(item, filter))?.id,
-    [filter],
-  );
-
   const activeUniverse =
     filter !== "all" ? FEATURED_UNIVERSES.find((u) => u.id === filter) : null;
 
@@ -53,11 +48,7 @@ export function Menu() {
               hidden={!visible}
               aria-hidden={!visible}
             >
-              <DrinkCard
-                item={item}
-                index={idx}
-                imagePriority={visible && item.id === priorityItemId}
-              />
+              <DrinkCard item={item} index={idx} />
             </li>
           );
         })}

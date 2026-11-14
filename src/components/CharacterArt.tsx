@@ -20,8 +20,6 @@ interface Props {
 
   side: "left" | "right";
 
-  priority?: boolean;
-
   alt?: string;
 
   variant?: "inline" | "background";
@@ -35,8 +33,6 @@ export function CharacterArt({
   item,
 
   side,
-
-  priority = false,
 
   alt,
 
@@ -103,10 +99,7 @@ export function CharacterArt({
             }
             quality={isBg ? 82 : 80}
             className="char-png"
-            loading={priority ? undefined : "lazy"}
-            priority={priority}
-            fetchPriority={priority ? "high" : "low"}
-
+            loading="eager"
             onError={() => setMissing(true)}
 
             aria-hidden={isBg}

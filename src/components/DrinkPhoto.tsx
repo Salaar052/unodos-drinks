@@ -8,10 +8,9 @@ import { DrinkPlaceholder } from "./DrinkPlaceholder";
 
 interface Props {
   item: MenuItem;
-  priority?: boolean;
 }
 
-export function DrinkPhoto({ item, priority = false }: Props) {
+export function DrinkPhoto({ item }: Props) {
   const [failed, setFailed] = useState(false);
   const usePhoto = item.hasPhoto && !failed;
 
@@ -26,9 +25,7 @@ export function DrinkPhoto({ item, priority = false }: Props) {
           sizes="(max-width: 640px) 44vw, 248px"
           quality={82}
           className="drink-photo-img"
-          loading={priority ? undefined : "lazy"}
-          priority={priority}
-          fetchPriority={priority ? "high" : "low"}
+          loading="eager"
           onError={() => setFailed(true)}
         />
       ) : (

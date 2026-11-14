@@ -8,14 +8,9 @@ import { DrinkPhoto } from "./DrinkPhoto";
 interface Props {
   item: MenuItem;
   index: number;
-  imagePriority?: boolean;
 }
 
-export const DrinkCard = memo(function DrinkCard({
-  item,
-  index,
-  imagePriority,
-}: Props) {
+export const DrinkCard = memo(function DrinkCard({ item, index }: Props) {
   const [open, setOpen] = useState(false);
   const ingredientsId = useId();
   const hasIngredients = Boolean(item.ingredients?.length);
@@ -35,16 +30,11 @@ export const DrinkCard = memo(function DrinkCard({
       }
     >
       <div className="drink-card-canvas" aria-hidden>
-        <CharacterArt
-          item={item}
-          side="left"
-          variant="background"
-          priority={imagePriority}
-        />
+        <CharacterArt item={item} side="left" variant="background" />
         <div className="drink-card-scrim" />
       </div>
       <div className="drink-card-hero">
-        <DrinkPhoto item={item} priority={imagePriority} />
+        <DrinkPhoto item={item} />
       </div>
       <div className="drink-card-layout">
         <div className="drink-card-body">
